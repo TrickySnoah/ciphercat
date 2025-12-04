@@ -1,0 +1,27 @@
+steve
+alex
+endermite
+zombie
+skeleton
+husk
+wolf
+cow
+sheep
+pig
+donkey
+ender dragon
+ender-dragon
+villager
+pillager
+witch
+enderman
+llama
+wandering trader
+wandering-trader
+iron
+gold
+lapis lazuli
+lapis-lazuli
+coal
+diamond
+redstone

@@ -1,0 +1,120 @@
+
+
+PassCat is intended to work with both Hashcat v6.2.6 and Python 3.10.11.
+
+Usage: python3 main.py [options]... 
+
+
+- [ Options ] -
+
+Options                | Description                                       | Example
+=======================+===================================================+====================
+-h, --help, --man      | Displays a manual page showing how PassCat can    |
+                       | be used                                           |
+-w                     | Indication for how the words from the word list   | -w ?aword?d?l
+                       | will be formatted, with masking or without        |
+-m                     | Hash-type used by hashcat (references below)      | -m 0
+-o, --files-h-output   | Output file for recovered hashes                  | -o cracked.txt
+                       |                                                   | --files-h-output files/cracked.txt
+-c                     | Amount of CPU cores to be used. 0 will opt to use | -c 6
+                       | all available cores on current CPU                |
+-p                     | All permutations / casing for words from the      | -p 4
+                       | provide word list (choices below)                 |
+-v                     | Which tool to use, wehther it be PassCat or       | -v 1
+                       | Hashcat                                           |
+--files-hashes         | File containing hashes to be cracked              | --files-hashes files/hashes.txt
+--files-input          | Word list file                                    | --files-input files/wordlist.txt
+--hashcat-path         | Path to hashcat elf file or exe file              | --hashcat-path ../../../../usr/bin/hashcat
+--hashcat-potfile-path | Path to hashcat potfile                           | --hashcat-potfile-path hashcat/potfile
+================================================================================================
+
+- [ Options' Defaults ] -
+
+Options                | Defualt value
+=======================+=============================================================
+-h, --help, --man      | N/A
+-w                     | N/A (required)
+-m                     | 0
+-o, --files-h-output   | files/cracked.txt
+-c                     | 1
+-p                     | 0
+-v                     | 0
+--files-hashes         | files/hashes.txt
+--files-input          | files/wordlist.txt
+--hashcat-path         | N/A (defaults to hashcat_path from config.py. If hashcat_path
+                       | is empty, then the program will fail
+--hashcat-potfile-path | N/A (defaults to hashcat_potfile_path from config.py. If
+                       | hashcat_potfile_path is empty, then the program will fail
+=====================================================================================
+
+- [ Cores (-c) ] -
+
+                  # | Description
+ ===================+=============
+                  0 | Total amount of cores on current CPU
+  0 < # < MAX CORES | Number of cores below the max
+
+- [ Built-in Charsets (-w) ] -
+
+  ? | Charset
+ ===+=========
+  l | abcdefghijklmnopqrstuvwxyz [a-z]
+  u | ABCDEFGHIJKLMNOPQRSTUVWXYZ [A-Z]
+  d | 0123456789                 [0-9]
+  s | !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~
+  t | ?s?d
+  a | ?l?u?d?s
+
+- [ Hash Modes (-m) ] -
+
+  # | Name
+ ===+======
+  0 | MD5
+
+- [ Permutations (-p) ] -
+
+  # | Letter Casing
+ ===+===============
+  0 | Uses words directly as they are typed in the provided word list
+  1 | Uses lowercase versions only of words in the provided word list
+  2 | Uses uppercase versions only of words in the provided word list
+  3 | Uses all capitalization possibilities of words / phrases in provided word list
+  4 | Uses all capitalizations, lowercase, and uppercase versions of words in the provided word list
+
+- [ Versions / Tools (-v) ] -
+
+  # | Tool
+ ===+==============
+  0 | Both - defaults to Hashcat but opts to use PassCat when needed
+  1 | PassCat
+  2 | HashCat
+
+- [ Full Usage Examples ] -
+
+[1]:
+python3 main.py -m 0 -w ?aword?a --files-input files/myown_wordlist.txt --files-hashes files/myown_hashes.txt -o files/myown_cracked.txt -p 4 -c 1
+
+[2]:
+python3 main.py -w word?a?a --files-input files/harry_potter_giant_list_original.txt -p 4 -c 0
+
+[3]:
+python3 main.py -w word?a?a?a -p 3 -c 24 --hashcat-path ../../../../usr/bin/hashcat
+
+[4]:
+python3 main.py -w word?a?a?a -w ?a?aword -w word -w ?aword -w ?dword?d -w ?s?dword?s?l -p 4 -c 0 -v 0 --hashcat-potfile-path ../../.local/share/hashcat/hashcat.potfile
+
+[5]: (solved Fall 2025 Individual Game Password Cracking Hard problem in 18 minutes)
+python3 main.py -w ?d?d?sword -w ?s?d?dword -w ?d?dword?s -w ?sword?d?d -w word?s?d?d -w word?d?d?s -w ?s?s?d?dword -w ?s?d?d?sword -w ?d?d?s?sword -w ?s?sword?d?d -w ?sword?s?d?d -w ?sword?d?d?s -w ?d?dword?s?s -w ?d?d?sword?s -w ?s?d?dword?s -w word?d?d?s?s -w word?s?d?d?s -w word?s?s?d?d -v 0 -p 4 -c 0 --files-hashes files/NCL_enterprise_hashes.txt --files-input files/NCL_enterprise_wordlist.txt
+
+- [ Try it Yourself ] -
+
+[1]:
+python3 main.py -w ?t?t?tword -w word?t?t?t -w ?t?tword?t -w ?tword?t?t -p 4 -c 0 -v 1 --files-input examples/example-01_wordlist.txt --files-hashes examples/example-01_hashes.txt -o exam
+ples/example-01_cracked.txt
+
+[2]:
+python3 main.py -w ?a?a?aword -w word?a?a?a -w ?a?aword?a -w ?aword?a?a -p 4 -c 0 -v 1 --files-input examples/example-02_wordlist.txt --files-hashes examples/example-02_hashes.txt -o examples/example-02_cracked.txt
+
+[3]:
+python3 main.py -w word?a?a?a?a -w ?a?a?a?aword -w word?a?a?a -w ?a?a?aword -w ?aword?a?a -w ?a?aword?a -v 0 -p 4 -c 0 --files-input examples/example-03_wordlist.txt --files-hashes examples/example-03_hashes.txt -o examples/example-03_cracked.txt
+
