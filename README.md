@@ -23,12 +23,7 @@ Clone the repository.
 ```
 git clone https://github.com/TrickySnoah/ciphercat.git
 ```
-Enter the repository and install the Python dependencies.
-```
-cd ciphercat
 
-pip install -r requirements.txt
-```
 ### (Optional) Hashcat
 Visit Hashcat's [releases page](https://hashcat.net/hashcat/) and install the binaries for Hashcat v6.2.6.
 
