@@ -1,9 +1,9 @@
 # CipherCat
-CipherCat is a password cracking tool that integrates with Hashcat to make password cracking simpler and easier. CipherCat is built with Python with optimized memory usage and the ability to fully utilize the CPU. CipherCat currently only offers the MD5 hash cracking mode but may offer more in the future. 
+CipherCat is a Python-based, cross-platform hash-cracking tool optimized for efficient computation, reduced memory usage, and configurable CPU utilization that allows for independent usage or seamless integration with Hashcat. The goal for CipherCat is to make password cracking simpler and easier. CipherCat currently only offers the MD5 hash cracking mode but may offer more in the future.
 
 
 ## License
-CipherCat is licensed under the MIT license. More information can be found in LICENSE.
+CipherCat is licensed under the MIT license. More information can be found in [LICENSE](https://github.com/TrickySnoah/ciphercat/blob/main/LICENSE).
 
 
 ## Requirements
@@ -30,7 +30,9 @@ cd ciphercat
 pip install -r requirements.txt
 ```
 ### (Optional) Hashcat
-Visit Hashcat's releases page here and install the binaries for Hashcat v6.2.6.
+Visit Hashcat's [releases page](https://hashcat.net/hashcat/) and install the binaries for Hashcat v6.2.6.
+
+Once the files are downloaded, place the files in a path that is accessible to CipherCat.
 
 
 ## Usage
