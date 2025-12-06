@@ -27,7 +27,7 @@ git clone https://github.com/TrickySnoah/ciphercat.git
 ### (Optional) Hashcat
 Visit Hashcat's [releases page](https://hashcat.net/hashcat/) and install the binaries for Hashcat v6.2.6.
 
-Once the files are downloaded, place the files in a path that is accessible to CipherCat.
+Once the files are downloaded, place the files in a path that is accessible to CipherCat. For Windows usage, the **OpenCL** and **modules** folders and **hashcat.hcstat2** and **hashcat.potfile** files must be in the same path as the **main.py** file.
 
 
 ## Usage
@@ -40,6 +40,9 @@ Refer to the output of ```--help``` for usage information and general help with 
 
 
 ## Frequently Asked Questions
+### Hashcat is not working with Windows. What can I do?
+For Hashcat functionality with Windows, the **OpenCL** and **modules** folders and **hashcat.hcstat2** and **hashcat.potfile** files must be in the same path as the **main.py** file.
+
 ### Does this tool work with WSL, or Windows Subsystem for Linux?
 Yes! The tool works with WSL just as it would be used in any other distribution of Linux.
 
