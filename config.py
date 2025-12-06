@@ -1,7 +1,7 @@
 
 
 
-""" Instructions and Help can be found below """
+""" The 'Instructions and Help' section can be found further below """
 
 
 
@@ -131,13 +131,13 @@ password_format = "?a?a?aword,word?a?a?a,?a?aword?a,?aword?a?a"
 hashcat_mode = 0
 
 # CORE AMOUNT HERE
-cores = 1
+cores = 0
 
 # PERMUATIONS TYPE
-permutations = 0
+permutations = 4
 
 # VERSION
-version = 0
+version = 1
 
 # HASHES FILE FILENAME
 hashes_file = "examples/example-02_hashes.txt"
