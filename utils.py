@@ -10,6 +10,54 @@ from constants import *
 from config import *
 
 
+
+##############################################################################################################################
+#-------------------------------------------------- CAUSES AND SOLUTIONS ----------------------------------------------------#
+##############################################################################################################################
+
+def solutions(error_code, args=None, os=None):
+    
+    print("ERROR. See causes and solutions below.\n")
+    
+    # 001 - Missing Hashcat file paths
+    if error_code == 1:
+        print("Error code 001: Missing Hashcat file paths while trying to use Hashcat.\n")
+        print("""If Hashcat is not wanted, then this error is typically due to the version being "0" or "2".""")
+        print("If Hashcat usage is desired:")
+        if os == "Linux":
+            print("  No argument was given. Ensure the Hashcat variables within the config.py file hold accurate paths. If")
+            print("   arguments are wanting to be given, refer to the output of 'python3 main.py --help'.")
+        elif os == "Win":
+            print("  Ensure the Hashcat variables within the config.py file hold accurate paths.")
+        print("  For more help, refer to: https://github.com/TrickySnoah/ciphercat/blob/main/README.md#optional-hashcat")
+        return
+    
+    # 002 - Incorrect Hashcat potfile path
+    if error_code = 2:
+        print("Error code 002: Incorrect Hashcat potfile path.\n")
+        if os == "Linux":
+            print("If an argument was given in the command, ensure that the path was spelled correctly and is accurate.")
+            print("If no argument was given in the command, ensure that the hashcat_potfile_path variable in the config.py file is accurate.")
+        elif os == "Win":
+            print("Ensure that the hashcat_potfile_path variable in the config.py file is accurate.")
+            print("""The file "hashcat.potfile" should be located in the same directory as main.py file. If not, create a new file and completely rename it to "hashcat.potfile".""")
+        print("For more help, refer to: https://github.com/TrickySnoah/ciphercat/blob/main/README.md#optional-hashcat")
+        return
+    
+    # 003 - Incorrect Hashcat path
+    if error_code = 3:
+        print("Error code 003: Incorrect Hashcat path.\n")
+        if os == "Linux":
+            print("If an argument was given in the command, ensure that the path was spelled correctly and is accurate.")
+            print("If no argument was given in the command, ensure that the hashcat_path variable in the config.py file is accurate.")
+        elif os == "Win":
+            print("Ensure that the hashcat_path variable in the config.py file is accurate.")
+            print("The path given to the hashcat_path variable in the config.py file should point towards Hashcat's .exe file")
+        print("For more help, refer to: https://github.com/TrickySnoah/ciphercat/blob/main/README.md#optional-hashcat")
+        return
+        
+
+
 ##############################################################################################################################
 #------------------------------------------------ DISCOVER OPERATING SYSTEM -------------------------------------------------#
 ##############################################################################################################################
@@ -325,7 +373,7 @@ def validate_given_files(args, os):
     print("Validating given files... ", end="")
     
     if args["version"] in ["0", "2"] and (args["hashcat potfile path"] == "" or args["hashcat path"] == ""):
-        print("""Error with missing Hashcat files while trying to use Hashcat. This typically is due to the version being "0" or "2".""")
+        solutions(1, os=os)
         wait(EXIT_WAIT_TIME)
         exit(1)
                 
@@ -340,12 +388,9 @@ def validate_given_files(args, os):
                 elif flag == "file input":
                     print("Error with opening word list.")
                 elif flag == "hashcat path":
-                    print("Error with Hashcat file path. If no argument was given in the command, edit the hashcat_path variable in the config.py file to have a default hashcat file path.")
+                    solutions(3, os=os)
                 elif flag == "hashcat potfile path":
-                    if os == "Linux":
-                        print("Error with Hashcat potfile file path. If no argument was given in the command, edit the hashcat_potfile_path variable in the config.py file to have a default hashcat potfile file path.")
-                    elif os == "Win":
-                        print("""Error with Hashcat potfile file path. The file "hashcat.potfile" should be located in the same directory as this .py file. If not, create a new file and completely rename it to "hashcat.potfile".""")
+                    solutions(2, os=os)
                 else:
                     print("Error with unknown file.")
                 wait(EXIT_WAIT_TIME)
