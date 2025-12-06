@@ -121,7 +121,7 @@ def manual_validate_and_parse(args):
         word_amount += 1
         
     # hashcat mode
-    if hashcat_mode not in ACCEPTABLE_HASH_MODES:
+    if str(hashcat_mode) not in ACCEPTABLE_HASH_MODES:
         print("Error with hashcat mode.")
         wait(EXIT_WAIT_TIME)
         exit(1)
@@ -323,9 +323,14 @@ def cli_validate_and_parse(args):
 def validate_given_files(args, os):
     
     print("Validating given files... ", end="")
-        
+    
+    if args["version"] in ["0", "2"] and (args["hashcat potfile path"] == "" or args["hashcat path"] == ""):
+        print("""Error with missing Hashcat files while trying to use Hashcat. This typically is due to the version being "0" or "2".""")
+        wait(EXIT_WAIT_TIME)
+        exit(1)
+                
     for flag in args:
-        if ("file" in flag or ("hashcat path" == flag and args["version"] in [0, 2]) or ("hashcat potfile path" == flag and args["version"] in [0, 2])) and flag != "file hashes output":
+        if (("file" in flag and "hashcat potfile path" not in flag) or ("hashcat path" == flag and args["version"] in [0, 2]) or ("hashcat potfile path" == flag and args["version"] in [0, 2])) and flag != "file hashes output":
             try:
                 with open(args[flag], "r", encoding="utf-8"):
                     pass
@@ -335,12 +340,12 @@ def validate_given_files(args, os):
                 elif flag == "file input":
                     print("Error with opening word list.")
                 elif flag == "hashcat path":
-                    print("Error with hashcat file path. If no argument was given in the command, edit the hashcat_path variable in the config.py file to have a default hashcat file path.")
+                    print("Error with Hashcat file path. If no argument was given in the command, edit the hashcat_path variable in the config.py file to have a default hashcat file path.")
                 elif flag == "hashcat potfile path":
                     if os == "Linux":
-                        print("Error with hashcat potfile file path. If no argument was given in the command, edit the hashcat_potfile_path variable in the config.py file to have a default hashcat potfile file path.")
+                        print("Error with Hashcat potfile file path. If no argument was given in the command, edit the hashcat_potfile_path variable in the config.py file to have a default hashcat potfile file path.")
                     elif os == "Win":
-                        print("""Error with hashcat potfile file path. The file "hashcat.potfile" should be located in the same directory as this .py file. If not, create a new file and completely rename it to "hashcat.potfile".""")
+                        print("""Error with Hashcat potfile file path. The file "hashcat.potfile" should be located in the same directory as this .py file. If not, create a new file and completely rename it to "hashcat.potfile".""")
                 else:
                     print("Error with unknown file.")
                 wait(EXIT_WAIT_TIME)
@@ -418,9 +423,7 @@ def pc_chunk_processor(chunk, iterations, word_format, word_index, increase_poin
 
 
 
-def crack_hashes(args): # IMPLEMENT A WAY TO CHANGE THE HEX OUTPUTS FROM HASHCAT TO TEXT. CHANGE IT FOR VIEW AND IN THE FILES (loop through, grab everything in a list, change the hexes in the list, rewrite back to each file)
-    
-    print("\nAttempting to find hashes in Hashcat potfile and chosen hash output files now...\n---")
+def crack_hashes(args):
     
     # grab all of the words from the file
     all_org_words = []
@@ -445,25 +448,33 @@ def crack_hashes(args): # IMPLEMENT A WAY TO CHANGE THE HEX OUTPUTS FROM HASHCAT
         for line in file:
             cracked_file_starting_point += 1
     
-    # grab already cracked hashes from the potfile and cracked file
-    ignore_hashes_potfile = []
+    
+    # grab already cracked hashes from the potfile and cracked file.
+    if args["hashcat potfile path"] != "":
+        print("\nAttempting to find hashes in Hashcat potfile and chosen hash output files now...\n---")
+    else:
+        print("\nAttempting to find hashes in chosen hash output file now...\n---")
+     
     ignore_hashes_cracked = []
-    with open(args["hashcat potfile path"], "r", encoding="utf-8") as file:
-        for line in file:
-            if line[:line.index(":")] in hashes:
-                ignore_hashes_potfile.append([line[:line.index(":")], line[line.index(":")+1:].rstrip()])
+    ignore_hashes_potfile = []
+    cracked_hashes = []
     with open(args["file hashes output"], "r", encoding="utf-8") as file:
         for line in file:
             if line[:line.index(":")] in hashes:
                 ignore_hashes_cracked.append([line[:line.index(":")], line[line.index(":")+1:].rstrip()])
-    cracked_hashes = []
-    for result in ignore_hashes_potfile:
+    for result in ignore_hashes_cracked:
         cracked_hashes.append(result)
         print(f"Disovered {result[0]}:{result[1]}")
-    for result in ignore_hashes_cracked:
-        if result not in cracked_hashes:
-            cracked_hashes.append(result)
-            print(f"Disovered {result[0]}:{result[1]}")
+    if args["hashcat potfile path"] != "":          
+        with open(args["hashcat potfile path"], "r", encoding="utf-8") as file:
+            for line in file:
+                if line[:line.index(":")] in hashes:
+                    ignore_hashes_potfile.append([line[:line.index(":")], line[line.index(":")+1:].rstrip()])
+        for result in ignore_hashes_potfile:
+            if result not in cracked_hashes:
+                cracked_hashes.append(result)
+                print(f"Disovered {result[0]}:{result[1]}")
+
     print(f"---\nAlready found {len(cracked_hashes)}/{len(hashes)} hashes from potfile and/or cracked file.")
     
     # ensure that the potfile and cracked files are in sync
@@ -471,7 +482,10 @@ def crack_hashes(args): # IMPLEMENT A WAY TO CHANGE THE HEX OUTPUTS FROM HASHCAT
     
     # end premature if all hashes are already cracked
     if len(cracked_hashes) >= len(hashes):
-        print(f"""\nAll hashes already found. Check '{args["hashcat potfile path"]}' and/or '{args["file hashes output"]}' for hashes.""")
+        if args["hashcat potfile path"] != "":
+            print(f"""\nAll hashes already found. Check '{args["hashcat potfile path"]}' and/or '{args["file hashes output"]}' for hashes.""")
+        else:
+            print(f"""\nAll hashes already found. Check the Hashcat potfile if used and/or '{args["file hashes output"]}' for hashes.""")
         wait(EXIT_WAIT_TIME)
         exit(0)
     
@@ -736,9 +750,6 @@ def save(args, cracked_hashes, ignore_hashes_potfile, ignore_hashes_cracked):
     
     print("\nEnsuring results are saved and readable... ", end="")
     
-    cracked_txt_needed_results = []
-    hashcat_potfile_needed_results = []
-    
     # save results
     for result in cracked_hashes:
         # ensure end up in files hashes output file
@@ -752,48 +763,58 @@ def save(args, cracked_hashes, ignore_hashes_potfile, ignore_hashes_cracked):
             if not found:
                 with open(args["file hashes output"], "a") as file:
                     file.write(f"{result[0]}:{result[1]}\n")
-        
-        # ensure end up in hashcat potfile file
-        if result not in ignore_hashes_potfile:
-            found = False
-            with open(args["hashcat potfile path"], "r", encoding="utf-8") as file:
-                for line in file:
-                    if [line[:len(result[0])],line[len(result[0])+1:].rstrip()] == result:
-                        found = True
-                        break
-            if not found:
-                with open(args["hashcat potfile path"], "a") as file:
-                    file.write(f"{result[0]}:{result[1]}\n")
+
     
     # ensure results are readable
     cracked_txt_hex_results = []
-    hashcat_potfile_hex_results = []
     
     with open(args["file hashes output"], "r", encoding="utf-8") as file:
         for line in file:
             if line.rstrip() not in cracked_txt_hex_results:
                 cracked_txt_hex_results.append(line.rstrip())
-            
-    with open(args["hashcat potfile path"], "r", encoding="utf-8") as file:
-        for line in file:
-            if line.rstrip() not in hashcat_potfile_hex_results:
-                hashcat_potfile_hex_results.append(line.rstrip())
-            
+    
     for result_index in range(len(cracked_txt_hex_results)):
         if cracked_txt_hex_results[result_index][cracked_txt_hex_results[result_index].index(":")+2:cracked_txt_hex_results[result_index].index(":")+5] == "HEX":
             cracked_txt_hex_results[result_index] = f"""{cracked_txt_hex_results[result_index][:cracked_txt_hex_results[result_index].index(":")]}:{bytes.fromhex(cracked_txt_hex_results[result_index][cracked_txt_hex_results[result_index].index("[")+1:-1]).decode("utf-8")}"""
             
-    for result_index in range(len(hashcat_potfile_hex_results)):
-        if hashcat_potfile_hex_results[result_index][hashcat_potfile_hex_results[result_index].index(":")+2:hashcat_potfile_hex_results[result_index].index(":")+5] == "HEX":
-            hashcat_potfile_hex_results[result_index] = f"""{hashcat_potfile_hex_results[result_index][:hashcat_potfile_hex_results[result_index].index(":")]}:{bytes.fromhex(hashcat_potfile_hex_results[result_index][hashcat_potfile_hex_results[result_index].index("[")+1:-1]).decode("utf-8")}"""
     
     with open(args["file hashes output"], "w", encoding="utf-8") as file:
         for result in cracked_txt_hex_results:
             file.write(f"{result}\n")
+    
+    # work with hashcat's potfile if needed
+    if args["hashcat potfile path"] != "":
             
-    with open(args["hashcat potfile path"], "w", encoding="utf-8") as file:
-        for result in hashcat_potfile_hex_results:
-            file.write(f"{result}\n")
+        # ensure end up in hashcat potfile file
+        for result in cracked_hashes:
+            if args["hashcat potfile path"] != "":
+                if result not in ignore_hashes_potfile:
+                    found = False
+                    with open(args["hashcat potfile path"], "r", encoding="utf-8") as file:
+                        for line in file:
+                            if [line[:len(result[0])],line[len(result[0])+1:].rstrip()] == result:
+                                found = True
+                                break
+                    if not found:
+                        with open(args["hashcat potfile path"], "a") as file:
+                            file.write(f"{result[0]}:{result[1]}\n")
+        
+        # ensure results are readable
+        hashcat_potfile_hex_results = []
+            
+        with open(args["hashcat potfile path"], "r", encoding="utf-8") as file:
+            for line in file:
+                if line.rstrip() not in hashcat_potfile_hex_results:
+                    hashcat_potfile_hex_results.append(line.rstrip())
+                    
+        for result_index in range(len(hashcat_potfile_hex_results)):
+            if hashcat_potfile_hex_results[result_index][hashcat_potfile_hex_results[result_index].index(":")+2:hashcat_potfile_hex_results[result_index].index(":")+5] == "HEX":
+                hashcat_potfile_hex_results[result_index] = f"""{hashcat_potfile_hex_results[result_index][:hashcat_potfile_hex_results[result_index].index(":")]}:{bytes.fromhex(hashcat_potfile_hex_results[result_index][hashcat_potfile_hex_results[result_index].index("[")+1:-1]).decode("utf-8")}"""
+        
+        with open(args["hashcat potfile path"], "w", encoding="utf-8") as file:
+            for result in hashcat_potfile_hex_results:
+                file.write(f"{result}\n")
+        
     
     print("Finished.")
 
@@ -805,7 +826,11 @@ def results(args, cracked_hashes, hashes, start_time, current_time):
     
     print("\n"*3 + "-"*70, "\nResults of cracking found below.\n")
     print(f"""Hashing mode: {args["mode"]}\nPermutations: {args["permutations"]}\nCores: {args["cores"]}\nWordlist: {args["file input"]}""")
-    print(f"""Hash file: {args["file hashes"]}\nOutput file: {args["file hashes output"]}\nHashcat file path: {args["hashcat path"]}\nHashcat potfile file path: {args["hashcat potfile path"]}\n""")
+    print(f"""Hash file: {args["file hashes"]}\nOutput file: {args["file hashes output"]}""")
+    if args["hashcat potfile path"] != "":
+        print(f"""Hashcat file path: {args["hashcat path"]}\nHashcat potfile file path: {args["hashcat potfile path"]}\n""")
+    else:
+        print("Hashcat file path: N/A\nHashcat potfile file path: N/A\n")
     print(f"""Cracked hashes: {len(cracked_hashes)}/{len(hashes)}""")
     print(f"""Total elapsed time: {int((current_time - start_time)//60//60)} hours {int((current_time - start_time)//60%60)} mins {(current_time - start_time)%60:.2f} secs""")
     

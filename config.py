@@ -21,19 +21,19 @@ permutations = 0
 version = 0
 
 # HASHES FILE FILENAME
-hashes_file = r"files/hashes.txt"
+hashes_file = "files/hashes.txt"
 
-# HASHCAT OUTPUT FILENAME
-h_output_file = r"files/cracked.txt"
+# OUTPUT FILENAME
+h_output_file = "files/cracked.txt"
 
 # RAW INPUT PASSWORDS FILE FILENAME
-input_file = r"files/wordlist.txt"
+input_file = "files/wordlist.txt"
 
 # HASHCAT FILE PATH HERE (default for CLI version)
-hashcat_path = r""
+hashcat_path = ""
 
 # HASHCAT POTFILE FILE PATH HERE (default for CLI version)
-hashcat_potfile_path = r""
+hashcat_potfile_path = ""
 
 
 """ Instructions and Help """
@@ -122,6 +122,37 @@ this file whilst Linux will have the option of relying on this file for ease of 
   1 | PassCat
   2 | HashCat
 
+- [ Working Example ] -
+
+# PASSWORD FORMAT (separate password formats by commas)
+password_format = "?a?a?aword,word?a?a?a,?a?aword?a,?aword?a?a"
+
+# HASHCAT MODE
+hashcat_mode = 0
+
+# CORE AMOUNT HERE
+cores = 1
+
+# PERMUATIONS TYPE
+permutations = 0
+
+# VERSION
+version = 0
+
+# HASHES FILE FILENAME
+hashes_file = "examples/example-02_hashes.txt"
+
+# OUTPUT FILENAME
+h_output_file = "examples/example-02_cracked.txt"
+
+# RAW INPUT PASSWORDS FILE FILENAME
+input_file = "examples/example-02_wordlist.txt"
+
+# HASHCAT FILE PATH HERE (default for CLI version)
+hashcat_path = ""
+
+# HASHCAT POTFILE FILE PATH HERE (default for CLI version)
+hashcat_potfile_path = ""
 
 """
 

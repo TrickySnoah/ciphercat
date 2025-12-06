@@ -36,7 +36,7 @@ Visit the **config.py** file for more instructions on how to set up the tool.
 
 Once the tool has been configured to the desired cracking state, open the **main.py** file in an IDE and run the tool.
 ### Linux
-Refer to the output of ```python3 main.py --help``` for usage information and general help with the tool. 
+Refer to the output of ```--help``` for usage information and general help with the tool. 
 
 
 ## Frequently Asked Questions
