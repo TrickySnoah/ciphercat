@@ -48,6 +48,10 @@ Once the tool has been configured to the desired cracking state, open the **main
 Refer to the output of ```python3 main.py --help``` for usage information and general help with the tool. 
 
 
+## Supported Hash Functions
+- MD5
+
+
 ## Frequently Asked Questions
 ### Why is Hashcat is not working with Windows?
 For Hashcat functionality with Windows, the **OpenCL** and **modules** folders and **hashcat.hcstat2** and **hashcat.potfile** files must be in the same path as the **main.py** file.
