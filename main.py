@@ -20,7 +20,7 @@ def main():
     # Manual / IDE version
     if os == "Win":
         print("\nManual Version Detected. Working with Manual version now.\n")
-        args = utils.manual_validate_and_parse(sys.argv)
+        args = utils.manual_validate_and_parse(sys.argv, os)
     
     # CLI / Linux version
     elif os == "Linux":

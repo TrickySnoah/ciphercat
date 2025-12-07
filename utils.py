@@ -33,7 +33,7 @@ def solutions(error_code, args=None, os=None):
         return
     
     # 002 - Incorrect Hashcat potfile path
-    if error_code = 2:
+    if error_code == 2:
         print("Error code 002: Incorrect Hashcat potfile path.\n")
         if os == "Linux":
             print("If an argument was given in the command, ensure that the path was spelled correctly and is accurate.")
@@ -41,11 +41,13 @@ def solutions(error_code, args=None, os=None):
         elif os == "Win":
             print("Ensure that the hashcat_potfile_path variable in the config.py file is accurate.")
             print("""The file "hashcat.potfile" should be located in the same directory as main.py file. If not, create a new file and completely rename it to "hashcat.potfile".""")
-        print("For more help, refer to: https://github.com/TrickySnoah/ciphercat/blob/main/README.md#optional-hashcat")
+        print("For more help, refer to:")
+        print("  Hashcat installation: https://github.com/TrickySnoah/ciphercat/blob/main/README.md#optional-hashcat")
+        print("  Hashcat Q/A: https://github.com/TrickySnoah/ciphercat/blob/main/README.md#why-is-hashcat-is-not-working-yet-i-have-already-moved-all-of-the-files")
         return
     
     # 003 - Incorrect Hashcat path
-    if error_code = 3:
+    if error_code == 3:
         print("Error code 003: Incorrect Hashcat path.\n")
         if os == "Linux":
             print("If an argument was given in the command, ensure that the path was spelled correctly and is accurate.")
@@ -53,7 +55,44 @@ def solutions(error_code, args=None, os=None):
         elif os == "Win":
             print("Ensure that the hashcat_path variable in the config.py file is accurate.")
             print("The path given to the hashcat_path variable in the config.py file should point towards Hashcat's .exe file")
-        print("For more help, refer to: https://github.com/TrickySnoah/ciphercat/blob/main/README.md#optional-hashcat")
+        print("For more help, refer to:")
+        print("  Hashcat installation: https://github.com/TrickySnoah/ciphercat/blob/main/README.md#optional-hashcat")
+        print("  Hashcat path Q/A: https://github.com/TrickySnoah/ciphercat/blob/main/README.md#what-file-should-the-hashcat_path-variable-in-the-configpy-file-or-the---hashcat-path-in-my-linux-command-point-towards")
+        return
+    
+    # 004 - Could Not Open Wordlist
+    if error_code == 4:
+        print("Error code 004: Could Not Open Wordlist.\n")
+        if os == "Linux":
+            print("Ensure that the provided argument for '--files-input' is accurate.")
+        elif os == "Win":
+            print("Ensure that the value for the 'input_file' variable in the config.py file is accurate.")
+        return
+    
+    # 005 - Could Not Open Hashes File
+    if error_code == 5:
+        print("Error code 005: Could Not Open Hashses File.\n")
+        if os == "Linux":
+            print("Ensure that the provided argument for '--files-hashes' is accurate.")
+        elif os == "Win":
+            print("Ensure that the value for the 'hashes_file' variable in the config.py file is accurate.")
+        return
+    
+    # 006 - Error With Provided Password Format(s)
+    if error_code == 6:
+        print("Error code 006: Error With Provided Password Format(s).\n")
+        if os == "Linux":
+            print("The argument for every '-w' flag:")
+            print("  should have all characters be lowercase.")
+            print("  should have a question mark (?) before every single mask.")
+            print("""  should have "word" somewhere in the argument that represents where the base word is in each password format.""")
+            print("For more help, refer to the output of 'python3 main.py --help'.")
+        elif os == "Win":
+            print("The provided value for the 'password_format' in the config.py file:")
+            print("  should have a comma separating each password format if multiple are given.")
+            print("  should have no spaces anywhere.")
+            print("""  should have "word" somewhere in he value that represents where the base word is in each password format.""")
+            print("For more help, refer to the 'Instructions and Help' section at the bottom of the config.py file.")
         return
         
 
@@ -123,7 +162,7 @@ def ensure_files():
 #------------------------------------------------- MANUAL VALIDATE & PARSE --------------------------------------------------#
 ##############################################################################################################################
 
-def manual_validate_and_parse(args):
+def manual_validate_and_parse(args, os):
     
     print("Validating and parsing information from within config.py file... ", end="")
 
@@ -159,11 +198,11 @@ def manual_validate_and_parse(args):
                 info["word"][word_amount] += "w"
                 continue
             else:
-                print("Error with masking.")
+                solutions(6, os=os)
                 wait(EXIT_WAIT_TIME)
                 exit(1)
         if not central_word_satisfied:
-            print("""Error with masking. Missing "word".""")
+            solutions(6, os=os)
             wait(EXIT_WAIT_TIME)
             exit(1)
         word_amount += 1
@@ -282,11 +321,11 @@ def cli_validate_and_parse(args):
                         info["word"][word_amount] += "w"
                         continue
                     else:
-                        print("Error with masking.")
+                        solutions(6, os=os)
                         wait(EXIT_WAIT_TIME)
                         exit(1)
                 if not central_word_satisfied:
-                    print("""Error with masking. Missing "word".""")
+                    solutions(6, os=os)
                     wait(EXIT_WAIT_TIME)
                     exit(1)
                 word_amount += 1
@@ -384,9 +423,9 @@ def validate_given_files(args, os):
                     pass
             except:
                 if flag == "file hashes":
-                    print("Error with existance of hashes file.")
+                    solutions(5, os=os)
                 elif flag == "file input":
-                    print("Error with opening word list.")
+                    solutions(4, os=os)
                 elif flag == "hashcat path":
                     solutions(3, os=os)
                 elif flag == "hashcat potfile path":
