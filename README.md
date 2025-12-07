@@ -62,6 +62,9 @@ First, double check that the folders and files are where they should be. Next, e
 ### What file should the hashcat_path variable in the config.py file or the ```--hashcat-path``` in my Linux command point towards?
 The hashcat_path variable or the ```--hashcat-path``` flag should both point towards Hashcat's .exe file or ELF file. The elf file may look like a file named "hashcat" without any file extension.
 
+### What does "version" mean to CipherCat?
+Per CipherCat, "version" refers to the tool that CipherCat will use. CipherCat has the option to either striclty act independently, strictly integrate with Hashcat, or work in a hybrid mode using either tool depending on certain variables.
+
 ### Does this tool work with WSL, or Windows Subsystem for Linux?
 Yes! The tool works with WSL just as it would be used in any other distribution of Linux.
 
