@@ -94,6 +94,40 @@ def solutions(error_code, args=None, os=None):
             print("""  should have "word" somewhere in he value that represents where the base word is in each password format.""")
             print("For more help, refer to the 'Instructions and Help' section at the bottom of the config.py file.")
         return
+    
+    # 007 - Error With Provided Hash Mode
+    if error_code == 7:
+        print("Error code 007: Error With Provided Hash Mode")
+        if os == "Linux":
+            print("Refer to the output of 'python3 main.py --help' to find all of the arguments for hash modes.")
+        elif os == "Win":
+            print("Refer to the 'Instructions and Help' section at the bottom of the config.py file to find all of the values for the hashcat_mode variable.")
+        print("To find all currently supported hash functions, refer to https://github.com/TrickySnoah/ciphercat/blob/main/README.md#supported-hash-functions")
+        return
+    
+    # 008 - Error With Provided Permutations
+    if error_code == 8:
+        print("Error code 008: Error With Provided Permutations.\n")
+        print("Perumations, in this case, refers to all of the capitalization possibilities of a provided password base.")
+        print(""" For example, all permutations of "Hello World" would be "hello world", "Hello world", "hello World", and "Hello World".""")
+        if os == "Linux":
+            print("Refer to the output of 'python3 main.py --help' to find all of the arguments for permutations.")
+        elif os == "Win":
+            print("Refer to the 'Instructions and Help' section at the bottom of the config.py file to find all of the values for the permutations variable.")
+        return
+    
+    # 009 - Error With Provided Version
+    if error_code == 9:
+        print("Error code 009: Error With Provided Verison.\n")
+        print("Version, in this case, refers to the tool that CipherCat is using as CipherCat has the option of either")
+        print(" being independent or integrating with Hashcat for more password cracking capability.")
+        if os == "Linux":
+            print("Refer to the output of 'python3 main.py --help' to find all of the arguments for version.")
+        elif os == "Win":
+            print("Refer to the 'Instructions and Help' section at the bottom of the config.py file to find all of the values for the version variable.")
+        return
+            
+            
         
 
 
@@ -209,7 +243,7 @@ def manual_validate_and_parse(args, os):
         
     # hashcat mode
     if str(hashcat_mode) not in ACCEPTABLE_HASH_MODES:
-        print("Error with hashcat mode.")
+        solutions(7, os=os)
         wait(EXIT_WAIT_TIME)
         exit(1)
     info["mode"] = str(hashcat_mode)
@@ -221,7 +255,7 @@ def manual_validate_and_parse(args, os):
         elif str(cores) == "0":
             info["cores"] = os.cpu_count()
         else:
-            print("Error with given cores. Likely that too many were given.")
+            print("Error with given cores. It is likely that too many were given.")
             wait(EXIT_WAIT_TIME)
             exit(1)
     else:
@@ -233,7 +267,7 @@ def manual_validate_and_parse(args, os):
     if str(permutations) in ACCEPTABLE_PERMUTATIONS:
         info["permutations"] = str(permutations)
     else:
-        print("Error with given permutations.")
+        solutions(8, os=os)
         wait(EXIT_WAIT_TIME)
         exit(1)
         
@@ -241,7 +275,8 @@ def manual_validate_and_parse(args, os):
     if str(version) in ACCEPTABLE_VERSIONS:
         info["version"] = str(version)
     else:
-        print("Error with given version.")
+        print("Error with given version.") ### working
+        solutions(9, os=os)
         wait(EXIT_WAIT_TIME)
         exit(1)
         
@@ -332,7 +367,7 @@ def cli_validate_and_parse(args):
                         
             elif flag == "-m":
                 if arg not in ACCEPTABLE_HASH_MODES:
-                    print("Error with hashcat mode.")
+                    solutions(7, os=os)
                     wait(EXIT_WAIT_TIME)
                     exit(1)
                 info["mode"] = arg
@@ -368,7 +403,7 @@ def cli_validate_and_parse(args):
                 if arg in ACCEPTABLE_PERMUTATIONS:
                     info["permutations"] = arg
                 else:
-                    print("Error with given permutations.")
+                    solutions(8, os=os)
                     wait(EXIT_WAIT_TIME)
                     exit(1)
                     
