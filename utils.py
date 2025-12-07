@@ -214,7 +214,7 @@ def ensure_files():
 #------------------------------------------------- MANUAL VALIDATE & PARSE --------------------------------------------------#
 ##############################################################################################################################
 
-def manual_validate_and_parse(args, os):
+def manual_validate_and_parse(args, os_name):
     
     print("Validating and parsing information from within config.py file... ", end="")
 
@@ -250,18 +250,18 @@ def manual_validate_and_parse(args, os):
                 info["word"][word_amount] += "w"
                 continue
             else:
-                solutions(6, os=os)
+                solutions(6, os=os_name)
                 wait(EXIT_WAIT_TIME)
                 exit(1)
         if not central_word_satisfied:
-            solutions(6, os=os)
+            solutions(6, os=os_name)
             wait(EXIT_WAIT_TIME)
             exit(1)
         word_amount += 1
         
     # hashcat mode
     if str(hashcat_mode) not in ACCEPTABLE_HASH_MODES:
-        solutions(7, os=os)
+        solutions(7, os=os_name)
         wait(EXIT_WAIT_TIME)
         exit(1)
     info["mode"] = str(hashcat_mode)
@@ -285,7 +285,7 @@ def manual_validate_and_parse(args, os):
     if str(permutations) in ACCEPTABLE_PERMUTATIONS:
         info["permutations"] = str(permutations)
     else:
-        solutions(8, os=os)
+        solutions(8, os=os_name)
         wait(EXIT_WAIT_TIME)
         exit(1)
         
@@ -293,7 +293,7 @@ def manual_validate_and_parse(args, os):
     if str(version) in ACCEPTABLE_VERSIONS:
         info["version"] = str(version)
     else:
-        solutions(9, os=os)
+        solutions(9, os=os_name)
         wait(EXIT_WAIT_TIME)
         exit(1)
         
@@ -321,7 +321,7 @@ def manual_validate_and_parse(args, os):
 #-------------------------------------------------- CLI VALIDATE & PARSE ----------------------------------------------------#
 ##############################################################################################################################
 
-def cli_validate_and_parse(args):
+def cli_validate_and_parse(args, os_name):
     
     print("Validating and parsing CLI command... ", end="")
     
@@ -373,18 +373,18 @@ def cli_validate_and_parse(args):
                         info["word"][word_amount] += "w"
                         continue
                     else:
-                        solutions(6, os=os)
+                        solutions(6, os=os_name)
                         wait(EXIT_WAIT_TIME)
                         exit(1)
                 if not central_word_satisfied:
-                    solutions(6, os=os)
+                    solutions(6, os=os_name)
                     wait(EXIT_WAIT_TIME)
                     exit(1)
                 word_amount += 1
                         
             elif flag == "-m":
                 if arg not in ACCEPTABLE_HASH_MODES:
-                    solutions(7, os=os)
+                    solutions(7, os=os_name)
                     wait(EXIT_WAIT_TIME)
                     exit(1)
                 info["mode"] = arg
@@ -420,7 +420,7 @@ def cli_validate_and_parse(args):
                 if arg in ACCEPTABLE_PERMUTATIONS:
                     info["permutations"] = arg
                 else:
-                    solutions(8, os=os)
+                    solutions(8, os=os_name)
                     wait(EXIT_WAIT_TIME)
                     exit(1)
                     
@@ -428,7 +428,7 @@ def cli_validate_and_parse(args):
                 if arg in ACCEPTABLE_VERSIONS:
                     info["version"] = arg
                 else:
-                    solutions(9, os=os)
+                    solutions(9, os=os_name)
                     wait(EXIT_WAIT_TIME)
                     exit(1)
             
@@ -437,7 +437,7 @@ def cli_validate_and_parse(args):
     # check for required flags
     for flag in REQUIRED_FLAGS:
         if info[flag] == "" or info[flag] == []:
-            solutions(11, os=os)
+            solutions(11, os=os_name)
             wait(EXIT_WAIT_TIME)
             exit(1)
             
@@ -464,7 +464,7 @@ def validate_given_files(args, os):
     print("Validating given files... ", end="")
     
     if args["version"] in ["0", "2"] and (args["hashcat potfile path"] == "" or args["hashcat path"] == ""):
-        solutions(1, os=os)
+        solutions(1, os=os_name)
         wait(EXIT_WAIT_TIME)
         exit(1)
                 
@@ -475,13 +475,13 @@ def validate_given_files(args, os):
                     pass
             except:
                 if flag == "file hashes":
-                    solutions(5, os=os)
+                    solutions(5, os=os_name)
                 elif flag == "file input":
-                    solutions(4, os=os)
+                    solutions(4, os=os_name)
                 elif flag == "hashcat path":
-                    solutions(3, os=os)
+                    solutions(3, os=os_name)
                 elif flag == "hashcat potfile path":
-                    solutions(2, os=os)
+                    solutions(2, os=os_name)
                 else:
                     print("Error with unknown file.")
                 wait(EXIT_WAIT_TIME)
@@ -568,7 +568,7 @@ def crack_hashes(args, os):
             for word in file:
                 all_org_words.append(word.rstrip())
     except:
-        solutions(4, os=os)
+        solutions(4, os=os_name)
         wait(EXIT_WAIT_TIME)
         exit(1)
     
