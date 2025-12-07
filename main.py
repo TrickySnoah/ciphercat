@@ -32,18 +32,18 @@ def main():
                     utils.display_manual()
                     wait(EXIT_WAIT_TIME)
                     exit(0)
-            print("Invalid arguments given.\nTry --help for more help.")
+            utils.solutions(10)
             wait(EXIT_WAIT_TIME)
             exit(1)
         
-        args = utils.cli_validate_and_parse(sys.argv)
+        args = utils.cli_validate_and_parse(sys.argv, os)
         
         
         
     # universal functions
     utils.ensure_files() # ensures that default files are present    
     utils.validate_given_files(args, os)
-    cracked_hashes, hashes, ignore_hashes_potfile, ignore_hashes_cracked = utils.crack_hashes(args)
+    cracked_hashes, hashes, ignore_hashes_potfile, ignore_hashes_cracked = utils.crack_hashes(args, os)
     utils.save(args, cracked_hashes, ignore_hashes_potfile, ignore_hashes_cracked)
     utils.results(args, cracked_hashes, hashes, start_time, start())
     

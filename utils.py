@@ -125,6 +125,24 @@ def solutions(error_code, args=None, os=None):
             print("Refer to the output of 'python3 main.py --help' to find all of the arguments for version.")
         elif os == "Win":
             print("Refer to the 'Instructions and Help' section at the bottom of the config.py file to find all of the values for the version variable.")
+        print("For more help, refer to https://github.com/TrickySnoah/ciphercat/blob/main/README.md#what-does-version-mean-to-ciphercat")
+        return
+    
+    # 010 - Error With Flags and Arguments
+    if error_code == 10:
+        print("Error code 010: Error With Flags and Arguments.\n")
+        print("For all of the available flags, refer to the output of '--python3 main.py --help'.")
+        return
+    
+    # 011 - Error With Required Flags/Variables
+    if error_code == 11:
+        print("Error code 011: Error With Required Flags/Variables.\n")
+        if os == "Linux":
+            print("Ensure that the '-w' flag is used with a valid argument.")
+            print("For more help, refer to the output of 'python3 main.py --help'.")
+        elif os == "Win":
+            print("Ensure that the password_format variable in the config.py file has a valid value given to it.")
+            print("For more help, refer to the 'Instructions and Help' section at the bottom of the config.py file.")
         return
             
             
@@ -275,7 +293,6 @@ def manual_validate_and_parse(args, os):
     if str(version) in ACCEPTABLE_VERSIONS:
         info["version"] = str(version)
     else:
-        print("Error with given version.") ### working
         solutions(9, os=os)
         wait(EXIT_WAIT_TIME)
         exit(1)
@@ -320,7 +337,7 @@ def cli_validate_and_parse(args):
         if target == "flag":
             
             if arg not in ACCEPTABLE_FLAGS:
-                print("Error with flags.")
+                solutions(10)
                 wait(EXIT_WAIT_TIME)
                 exit(1)
             flag = arg
@@ -391,7 +408,7 @@ def cli_validate_and_parse(args):
                     elif arg == "0":
                         info["cores"] = os.cpu_count()
                     else:
-                        print("Error with given cores.")
+                        print("Error with given cores. It is likely that too many were given.")
                         wait(EXIT_WAIT_TIME)
                         exit(1)
                 else:
@@ -411,7 +428,7 @@ def cli_validate_and_parse(args):
                 if arg in ACCEPTABLE_VERSIONS:
                     info["version"] = arg
                 else:
-                    print("Error with given version.")
+                    solutions(9, os=os)
                     wait(EXIT_WAIT_TIME)
                     exit(1)
             
@@ -420,7 +437,7 @@ def cli_validate_and_parse(args):
     # check for required flags
     for flag in REQUIRED_FLAGS:
         if info[flag] == "" or info[flag] == []:
-            print("Error with missing required flags.")
+            solutions(11, os=os)
             wait(EXIT_WAIT_TIME)
             exit(1)
             
@@ -542,7 +559,7 @@ def pc_chunk_processor(chunk, iterations, word_format, word_index, increase_poin
 
 
 
-def crack_hashes(args):
+def crack_hashes(args, os):
     
     # grab all of the words from the file
     all_org_words = []
@@ -551,7 +568,7 @@ def crack_hashes(args):
             for word in file:
                 all_org_words.append(word.rstrip())
     except:
-        print("Error with opening word list.")
+        solutions(4, os=os)
         wait(EXIT_WAIT_TIME)
         exit(1)
     
