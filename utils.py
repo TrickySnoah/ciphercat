@@ -17,7 +17,7 @@ from config import *
 
 def solutions(error_code, args=None, os=None):
     
-    print("ERROR. See causes and solutions below.\n")
+    print("ERROR. See causes and solutions below.\n\n" + "-"*15)
     
     # 001 - Missing Hashcat file paths
     if error_code == 1:
@@ -71,7 +71,7 @@ def solutions(error_code, args=None, os=None):
     
     # 005 - Could Not Open Hashes File
     if error_code == 5:
-        print("Error code 005: Could Not Open Hashses File.\n")
+        print("Error code 005: Could Not Open Hashes File.\n")
         if os == "Linux":
             print("Ensure that the provided argument for '--files-hashes' is accurate.")
         elif os == "Win":
@@ -97,11 +97,13 @@ def solutions(error_code, args=None, os=None):
     
     # 007 - Error With Provided Hash Mode
     if error_code == 7:
-        print("Error code 007: Error With Provided Hash Mode")
+        print("Error code 007: Error With Provided Hash Mode.\n")
         if os == "Linux":
+            print("Ensure that the argument provided for the '-m' flag is accurate.")
             print("Refer to the output of 'python3 main.py --help' to find all of the arguments for hash modes.")
         elif os == "Win":
-            print("Refer to the 'Instructions and Help' section at the bottom of the config.py file to find all of the values for the hashcat_mode variable.")
+            print("Ensure that the value given to the hashcat_mode variable in the config.py file is accurate.")
+            print("Refer to the 'Instructions and Help' section at the bottom of the config.py file to find all of the available values for the hashcat_mode variable.")
         print("To find all currently supported hash functions, refer to https://github.com/TrickySnoah/ciphercat/blob/main/README.md#supported-hash-functions")
         return
     
@@ -111,9 +113,11 @@ def solutions(error_code, args=None, os=None):
         print("Perumations, in this case, refers to all of the capitalization possibilities of a provided password base.")
         print(""" For example, all permutations of "Hello World" would be "hello world", "Hello world", "hello World", and "Hello World".""")
         if os == "Linux":
+            print("Ensure that the argument provided for the '-p' flag is accurate.")
             print("Refer to the output of 'python3 main.py --help' to find all of the arguments for permutations.")
         elif os == "Win":
-            print("Refer to the 'Instructions and Help' section at the bottom of the config.py file to find all of the values for the permutations variable.")
+            print("Ensure that the value given to the permutations variable in the config.py file is accurate.")
+            print("Refer to the 'Instructions and Help' section at the bottom of the config.py file to find all of the available values for the permutations variable.")
         return
     
     # 009 - Error With Provided Version
@@ -124,7 +128,7 @@ def solutions(error_code, args=None, os=None):
         if os == "Linux":
             print("Refer to the output of 'python3 main.py --help' to find all of the arguments for version.")
         elif os == "Win":
-            print("Refer to the 'Instructions and Help' section at the bottom of the config.py file to find all of the values for the version variable.")
+            print("Refer to the 'Instructions and Help' section at the bottom of the config.py file to find all of the available values for the version variable.")
         print("For more help, refer to https://github.com/TrickySnoah/ciphercat/blob/main/README.md#what-does-version-mean-to-ciphercat")
         return
     
@@ -459,7 +463,7 @@ def cli_validate_and_parse(args, os_name):
 #--------------------------------------------------- VALIDATE GIVEN FILES ---------------------------------------------------#
 ##############################################################################################################################
 
-def validate_given_files(args, os):
+def validate_given_files(args, os_name):
     
     print("Validating given files... ", end="")
     
@@ -469,7 +473,7 @@ def validate_given_files(args, os):
         exit(1)
                 
     for flag in args:
-        if (("file" in flag and "hashcat potfile path" not in flag) or ("hashcat path" == flag and args["version"] in [0, 2]) or ("hashcat potfile path" == flag and args["version"] in [0, 2])) and flag != "file hashes output":
+        if (("file" in flag and "hashcat potfile path" not in flag) or ("hashcat path" == flag and args["version"] in ["0", "2"]) or ("hashcat potfile path" == flag and args["version"] in ["0", "2"])) and flag != "file hashes output":
             try:
                 with open(args[flag], "r", encoding="utf-8"):
                     pass
@@ -559,7 +563,7 @@ def pc_chunk_processor(chunk, iterations, word_format, word_index, increase_poin
 
 
 
-def crack_hashes(args, os):
+def crack_hashes(args, os_name):
     
     # grab all of the words from the file
     all_org_words = []
