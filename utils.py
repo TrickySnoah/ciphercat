@@ -135,7 +135,7 @@ def solutions(error_code, args=None, os=None):
     # 010 - Error With Flags and Arguments
     if error_code == 10:
         print("Error code 010: Error With Flags and Arguments.\n")
-        print("For all of the available flags, refer to the output of '--python3 main.py --help'.")
+        print("For all of the available flags, refer to the output of 'python3 main.py --help'.")
         return
     
     # 011 - Error With Required Flags/Variables
