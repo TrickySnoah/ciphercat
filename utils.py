@@ -568,7 +568,7 @@ def crack_hashes(args, os_name):
     # grab all of the words from the file
     all_org_words = []
     try: # already validated. Here for just in case.
-        with open(args["file input"], "r", encoding="utf-8") as file:
+        with open(args["file input"], "r", encoding="utf-8", errors="ignore") as file:
             for word in file:
                 all_org_words.append(word.rstrip())
     except:
@@ -638,7 +638,7 @@ def crack_hashes(args, os_name):
             print("Starting cracking...")
         else:
             print("Starting next cracking...")
-        
+
         # determine whether to integrate Hashcat or not
         if args["version"] == "1":
             tool = "PassCat"
@@ -652,7 +652,7 @@ def crack_hashes(args, os_name):
                     break
             if ((args["word"][password_format_index].index("w") == 0) == (args["word"][password_format_index].index("w") == len(args["word"][password_format_index])-1)) and len(args["word"][password_format_index]) != 1:
                 tool = "PassCat"
-        
+
         # calculate the amount of iterations per word when looping
         iterations = 1
         for char in args["word"][password_format_index]:
@@ -669,11 +669,10 @@ def crack_hashes(args, os_name):
                     if sub_index != word_index:
                         current_increase_point *= len(MASK_DICTIONARY[args["word"][password_format_index][sub_index]])
                 increase_points[index] = current_increase_point # elements will be increase point. example math equation for adding to candidates: ((iterations // increase_point) % len(current_item))
-                
+      
         # loop through every word in the word list
-        pre_word_list = []
+        pre_word_set = set()
         for word_org in all_org_words:
-            
             # get permutations of word based on given args
             word_combos = []
             if args["permutations"] == "0": # normal
@@ -691,15 +690,17 @@ def crack_hashes(args, os_name):
                 
                 
             # remove spaces as needed
-            if args["permutations"] in ["0", "1", "2"]:
+            if args["permutations"] != "4":
                 for word in range(len(word_combos)):
-                    word_combos[word] = word_combos[word].replace(" ","")
+                    if " " in word_combos[word]:
+                        word_combos[word] = word_combos[word].replace(" ","")
             
             # create the pre word list that will be fed into multiprocessing
             for word in word_combos:
-                if word not in pre_word_list:
-                    pre_word_list.append(word)
-        
+                    pre_word_set.add(word)
+                    
+        pre_word_list = list(pre_word_set)
+
         # based on how many total words there are after everything, determine the final choice of tool
         if len(pre_word_list) <= MINIMUM_HASHCAT_WORDLIST_SIZE and tool == "Hashcat":
             print("* Wordlist too small - changing tool to PassCat")
@@ -718,7 +719,7 @@ def crack_hashes(args, os_name):
                     print("Error with determining Hashcat's attack mode. Hashcat does not support: Mask + Wordlist + Mask.")
                     wait(EXIT_WAIT_TIME)
                     exit(1)
-        
+
         # create chunks based on the amount of cores being used
         current_cores = args["cores"]
         if len(pre_word_list) <= int(args["cores"]):
@@ -736,7 +737,7 @@ def crack_hashes(args, os_name):
                 current_chunk_size = base_chunk_size
             chunks.append(pre_word_list[start_index:start_index + current_chunk_size])
             start_index += current_chunk_size
-        
+
         # get the start time for every word format
         start_time = time()
         
@@ -790,7 +791,7 @@ def crack_hashes(args, os_name):
                             print(f"  Hashcat discovered: {part_0} : {part_1}")
                             cracked_hashes.append([part_0, part_1])
 
-        
+
         # give a status update
         print(f"""Tool finished.\n  Tool's elapsed time: {int((time() - start_time)//60//60)} hours {int((time() - start_time)//60%60)} mins {(time() - start_time)%60:.2f} secs""")
         print(f"Current results: {len(cracked_hashes)}/{len(hashes)}\n")
@@ -999,3 +1000,4 @@ def results(args, cracked_hashes, hashes, start_time, current_time):
             
         
         
+
