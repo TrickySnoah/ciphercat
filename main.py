@@ -1,5 +1,5 @@
 
-# PassCat tool created by Noah Jackson
+# CipherCat tool created by Noah Jackson
 
 import sys, utils
 from time import time as start, sleep as wait
@@ -8,7 +8,7 @@ from constants import *
 
 def main():
     # proud mark
-    print("\nPassCat tool created by: Noah Jackson")
+    print("\nCipherCat tool created by: Noah Jackson")
     
     # start time for statistics
     start_time = start()
@@ -30,6 +30,10 @@ def main():
             if len(sys.argv) != 1:
                 if sys.argv[1] in HELP_FLAGS:
                     utils.display_manual()
+                    wait(EXIT_WAIT_TIME)
+                    exit(0)
+                elif sys.argv[1] in VERSION_FLAGS:
+                    utils.display_version()
                     wait(EXIT_WAIT_TIME)
                     exit(0)
             utils.solutions(10)

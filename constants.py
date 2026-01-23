@@ -44,6 +44,8 @@ NO LONGER BEING USED
 
 HELP_FLAGS = ["-help", "--help", "-h", "-man", "--man", "--manual"]
 
+VERSION_FLAGS = ["--version"]
+
 ACCEPTABLE_HASH_MODES = ["0"]
 
 
@@ -52,7 +54,7 @@ ACCEPTABLE_HASH_MODES = ["0"]
 
 ACCEPTABLE_MASKS = ["a","s","d","u","l","t"]
 
-PASSCAT_UNIQUE_MASKS = ["t"]
+CIPHERCAT_UNIQUE_MASKS = ["t"]
 
 SYMBOLS = """`~!@#$%^&*()_-+={[}]|\\;:'",<.>/?"""
 NUMBERS = "0123456789"
@@ -101,6 +103,8 @@ PASSWORDS_DEFAULT_FILE_PATH = r"files/password_files/passwordlist"
 MAX_THREADS = os.cpu_count()
 
 EXIT_WAIT_TIME = 1
+
+TOOL_VERSION = "1.0.0"
 
 # MINIMUM_CHUNK_SIZE = 10000
 

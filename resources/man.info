@@ -1,6 +1,6 @@
 
 
-PassCat is intended to work with both Hashcat v6.2.6 and Python 3.10.11.
+CipherCat is intended to work with both Hashcat v6.2.6 and Python 3.10.11.
 
 Usage: python3 main.py [options]... 
 
@@ -9,7 +9,7 @@ Usage: python3 main.py [options]...
 
 Options                | Description                                       | Example
 =======================+===================================================+====================
--h, --help, --man      | Displays a manual page showing how PassCat can    |
+-h, --help, --man      | Displays a manual page showing how CipherCat can  |
                        | be used                                           |
 -w                     | Indication for how the words from the word list   | -w ?aword?d?l
                        | will be formatted, with masking or without        |
@@ -20,7 +20,7 @@ Options                | Description                                       | Exa
                        | all available cores on current CPU                |
 -p                     | All permutations / casing for words from the      | -p 4
                        | provide word list (choices below)                 |
--v                     | Which tool to use, wehther it be PassCat or       | -v 1
+-v                     | Which tool to use, wehther it be CipherCat or     | -v 1
                        | Hashcat                                           |
 --files-hashes         | File containing hashes to be cracked              | --files-hashes files/hashes.txt
 --files-input          | Word list file                                    | --files-input files/wordlist.txt
@@ -85,8 +85,8 @@ Options                | Defualt value
 
   # | Tool
  ===+==============
-  0 | Both - defaults to Hashcat but opts to use PassCat when needed
-  1 | PassCat
+  0 | Both - defaults to Hashcat but opts to use CipherCat when needed
+  1 | CipherCat
   2 | HashCat
 
 - [ Full Usage Examples ] -

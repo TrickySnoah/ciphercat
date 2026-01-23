@@ -91,7 +91,7 @@ def solutions(error_code, args=None, os=None):
             print("The provided value for the 'password_format' in the config.py file:")
             print("  should have a comma separating each password format if multiple are given.")
             print("  should have no spaces anywhere.")
-            print("""  should have "word" somewhere in he value that represents where the base word is in each password format.""")
+            print("""  should have "word" somewhere in the value that represents where the base word is in each password format.""")
             print("For more help, refer to the 'Instructions and Help' section at the bottom of the config.py file.")
         return
     
@@ -185,6 +185,12 @@ def display_manual():
         for line in file:
             print(line.rstrip())
 
+##############################################################################################################################
+#------------------------------------------------------ TOOL VERSION --------------------------------------------------------#
+##############################################################################################################################
+
+def display_version():
+    print(TOOL_VERSION)
 
 ##############################################################################################################################
 #---------------------------------------------------- VALIDATING FILES ------------------------------------------------------#
@@ -534,7 +540,7 @@ def get_word_combos(word_org):
             
     return word_combos
 
-# PassCat functions
+# CipherCat functions
 def hash_generator(pre_word_list, iterations, word_format, word_index, increase_points):
     
     for word in pre_word_list:
@@ -556,7 +562,7 @@ def pc_chunk_processor(chunk, iterations, word_format, word_index, increase_poin
     solves = []
     for result, password in hash_generator(chunk, iterations, word_format, word_index, increase_points):
         if result in hashes:
-            print(f"  PassCat discovered: {result} : {password}")
+            print(f"  CipherCat discovered: {result} : {password}")
             solves.append([result, password])
             
     return solves
@@ -641,17 +647,17 @@ def crack_hashes(args, os_name):
 
         # determine whether to integrate Hashcat or not
         if args["version"] == "1":
-            tool = "PassCat"
+            tool = "CipherCat"
         elif args["version"] == "2":
             tool = "Hashcat"
         elif args["version"] == "0":
             tool = "Hashcat"
             for char in args["word"][password_format_index]:
-                if char in PASSCAT_UNIQUE_MASKS:
-                    tool = "PassCat"
+                if char in CIPHERCAT_UNIQUE_MASKS:
+                    tool = "CipherCat"
                     break
             if ((args["word"][password_format_index].index("w") == 0) == (args["word"][password_format_index].index("w") == len(args["word"][password_format_index])-1)) and len(args["word"][password_format_index]) != 1:
-                tool = "PassCat"
+                tool = "CipherCat"
 
         # calculate the amount of iterations per word when looping
         iterations = 1
@@ -703,8 +709,8 @@ def crack_hashes(args, os_name):
 
         # based on how many total words there are after everything, determine the final choice of tool
         if len(pre_word_list) <= MINIMUM_HASHCAT_WORDLIST_SIZE and tool == "Hashcat":
-            print("* Wordlist too small - changing tool to PassCat")
-            tool = "PassCat"
+            print("* Wordlist too small - changing tool to CipherCat")
+            tool = "CipherCat"
             
         # if the tool is Hashcat, then determine the attack mode
         attack_mode = "N/A"
@@ -746,9 +752,9 @@ def crack_hashes(args, os_name):
         
         
         # using either tool
-        if tool == "PassCat":
+        if tool == "CipherCat":
             
-            print("Using PassCat to crack hashes now... ")
+            print("Using CipherCat to crack hashes now... ")
             
             # use multiprocessing to get the word list
             with ProcessPoolExecutor(max_workers=int(args["cores"])) as executor:

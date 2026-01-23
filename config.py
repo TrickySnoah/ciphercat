@@ -1,4 +1,6 @@
 
+""" Current version: v1.0.0 """
+
 
 
 """ The 'Instructions and Help' section can be found further below """
@@ -17,7 +19,7 @@ cores = 1
 # PERMUATIONS TYPE
 permutations = 0
 
-# VERSION
+# VERSION (tool)
 version = 0
 
 # HASHES FILE FILENAME
@@ -118,8 +120,8 @@ this file whilst Linux will have the option of relying on this file for ease of 
 
   # | Tool
  ===+==============
-  0 | Both - defaults to Hashcat but opts to use PassCat when needed
-  1 | PassCat
+  0 | Both - defaults to Hashcat but opts to use CipherCat when needed
+  1 | CipherCat
   2 | HashCat
 
 - [ Working Example ] -
