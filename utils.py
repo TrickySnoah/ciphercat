@@ -29,7 +29,7 @@ def solutions(error_code, args=None, os=None):
             print("   arguments are wanting to be given, refer to the output of 'python3 main.py --help'.")
         elif os == "Win":
             print("  Ensure the Hashcat variables within the config.py file hold accurate paths.")
-        print("  For more help, refer to: https://github.com/TrickySnoah/ciphercat/blob/main/README.md#optional-hashcat")
+        print("  For more help, refer to: https://github.com/TrickySnoah/hashfox/blob/main/README.md#optional-hashcat")
         return
     
     # 002 - Incorrect Hashcat potfile path
@@ -42,8 +42,8 @@ def solutions(error_code, args=None, os=None):
             print("Ensure that the hashcat_potfile_path variable in the config.py file is accurate.")
             print("""The file "hashcat.potfile" should be located in the same directory as main.py file. If not, create a new file and completely rename it to "hashcat.potfile".""")
         print("For more help, refer to:")
-        print("  Hashcat installation: https://github.com/TrickySnoah/ciphercat/blob/main/README.md#optional-hashcat")
-        print("  Hashcat Q/A: https://github.com/TrickySnoah/ciphercat/blob/main/README.md#why-is-hashcat-is-not-working-yet-i-have-already-moved-all-of-the-files")
+        print("  Hashcat installation: https://github.com/TrickySnoah/hashfox/blob/main/README.md#optional-hashcat")
+        print("  Hashcat Q/A: https://github.com/TrickySnoah/hashfox/blob/main/README.md#why-is-hashcat-is-not-working-yet-i-have-already-moved-all-of-the-files")
         return
     
     # 003 - Incorrect Hashcat path
@@ -56,8 +56,8 @@ def solutions(error_code, args=None, os=None):
             print("Ensure that the hashcat_path variable in the config.py file is accurate.")
             print("The path given to the hashcat_path variable in the config.py file should point towards Hashcat's .exe file")
         print("For more help, refer to:")
-        print("  Hashcat installation: https://github.com/TrickySnoah/ciphercat/blob/main/README.md#optional-hashcat")
-        print("  Hashcat path Q/A: https://github.com/TrickySnoah/ciphercat/blob/main/README.md#what-file-should-the-hashcat_path-variable-in-the-configpy-file-or-the---hashcat-path-in-my-linux-command-point-towards")
+        print("  Hashcat installation: https://github.com/TrickySnoah/hashfox/blob/main/README.md#optional-hashcat")
+        print("  Hashcat path Q/A: https://github.com/TrickySnoah/hashfox/blob/main/README.md#what-file-should-the-hashcat_path-variable-in-the-configpy-file-or-the---hashcat-path-in-my-linux-command-point-towards")
         return
     
     # 004 - Could Not Open Wordlist
@@ -104,7 +104,7 @@ def solutions(error_code, args=None, os=None):
         elif os == "Win":
             print("Ensure that the value given to the hashcat_mode variable in the config.py file is accurate.")
             print("Refer to the 'Instructions and Help' section at the bottom of the config.py file to find all of the available values for the hashcat_mode variable.")
-        print("To find all currently supported hash functions, refer to https://github.com/TrickySnoah/ciphercat/blob/main/README.md#supported-hash-functions")
+        print("To find all currently supported hash functions, refer to https://github.com/TrickySnoah/hashfox/blob/main/README.md#supported-hash-functions")
         return
     
     # 008 - Error With Provided Permutations
@@ -123,13 +123,13 @@ def solutions(error_code, args=None, os=None):
     # 009 - Error With Provided Version
     if error_code == 9:
         print("Error code 009: Error With Provided Verison.\n")
-        print("Version, in this case, refers to the tool that CipherCat is using as CipherCat has the option of either")
+        print("Version, in this case, refers to the tool that HashFox is using as HashFox has the option of either")
         print(" being independent or integrating with Hashcat for more password cracking capability.")
         if os == "Linux":
             print("Refer to the output of 'python3 main.py --help' to find all of the arguments for version.")
         elif os == "Win":
             print("Refer to the 'Instructions and Help' section at the bottom of the config.py file to find all of the available values for the version variable.")
-        print("For more help, refer to https://github.com/TrickySnoah/ciphercat/blob/main/README.md#what-does-version-mean-to-ciphercat")
+        print("For more help, refer to https://github.com/TrickySnoah/hashfox/blob/main/README.md#what-does-version-mean-to-hashfox")
         return
     
     # 010 - Error With Flags and Arguments
@@ -540,7 +540,7 @@ def get_word_combos(word_org):
             
     return word_combos
 
-# CipherCat functions
+# HashFox functions
 def hash_generator(pre_word_list, iterations, word_format, word_index, increase_points):
     
     for word in pre_word_list:
@@ -562,7 +562,7 @@ def pc_chunk_processor(chunk, iterations, word_format, word_index, increase_poin
     solves = []
     for result, password in hash_generator(chunk, iterations, word_format, word_index, increase_points):
         if result in hashes:
-            print(f"  CipherCat discovered: {result} : {password}")
+            print(f"  HashFox discovered: {result} : {password}")
             solves.append([result, password])
             
     return solves
@@ -647,17 +647,17 @@ def crack_hashes(args, os_name):
 
         # determine whether to integrate Hashcat or not
         if args["version"] == "1":
-            tool = "CipherCat"
+            tool = "HashFox"
         elif args["version"] == "2":
             tool = "Hashcat"
         elif args["version"] == "0":
             tool = "Hashcat"
             for char in args["word"][password_format_index]:
-                if char in CIPHERCAT_UNIQUE_MASKS:
-                    tool = "CipherCat"
+                if char in HASHFOX_UNIQUE_MASKS:
+                    tool = "HashFox"
                     break
             if ((args["word"][password_format_index].index("w") == 0) == (args["word"][password_format_index].index("w") == len(args["word"][password_format_index])-1)) and len(args["word"][password_format_index]) != 1:
-                tool = "CipherCat"
+                tool = "HashFox"
 
         # calculate the amount of iterations per word when looping
         iterations = 1
@@ -709,8 +709,8 @@ def crack_hashes(args, os_name):
 
         # based on how many total words there are after everything, determine the final choice of tool
         if len(pre_word_list) <= MINIMUM_HASHCAT_WORDLIST_SIZE and tool == "Hashcat":
-            print("* Wordlist too small - changing tool to CipherCat")
-            tool = "CipherCat"
+            print("* Wordlist too small - changing tool to HashFox")
+            tool = "HashFox"
             
         # if the tool is Hashcat, then determine the attack mode
         attack_mode = "N/A"
@@ -752,9 +752,9 @@ def crack_hashes(args, os_name):
         
         
         # using either tool
-        if tool == "CipherCat":
+        if tool == "HashFox":
             
-            print("Using CipherCat to crack hashes now... ")
+            print("Using HashFox to crack hashes now... ")
             
             # use multiprocessing to get the word list
             with ProcessPoolExecutor(max_workers=int(args["cores"])) as executor:

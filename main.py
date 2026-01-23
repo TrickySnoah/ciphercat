@@ -1,5 +1,5 @@
 
-# CipherCat tool created by Noah Jackson
+# HashFox tool created by Noah Jackson
 
 import sys, utils
 from time import time as start, sleep as wait
@@ -8,7 +8,7 @@ from constants import *
 
 def main():
     # proud mark
-    print("\nCipherCat tool created by: Noah Jackson")
+    print("\nHashFox tool created by: Noah Jackson")
     
     # start time for statistics
     start_time = start()

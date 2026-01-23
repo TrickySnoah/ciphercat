@@ -54,7 +54,7 @@ ACCEPTABLE_HASH_MODES = ["0"]
 
 ACCEPTABLE_MASKS = ["a","s","d","u","l","t"]
 
-CIPHERCAT_UNIQUE_MASKS = ["t"]
+HASHFOX_UNIQUE_MASKS = ["t"]
 
 SYMBOLS = """`~!@#$%^&*()_-+={[}]|\\;:'",<.>/?"""
 NUMBERS = "0123456789"

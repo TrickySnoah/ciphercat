@@ -120,8 +120,8 @@ this file whilst Linux will have the option of relying on this file for ease of 
 
   # | Tool
  ===+==============
-  0 | Both - defaults to Hashcat but opts to use CipherCat when needed
-  1 | CipherCat
+  0 | Both - defaults to Hashcat but opts to use HashFox when needed
+  1 | HashFox
   2 | HashCat
 
 - [ Working Example ] -

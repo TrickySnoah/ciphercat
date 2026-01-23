@@ -1,9 +1,9 @@
-# CipherCat
-CipherCat is a Python-based, cross-platform hash-cracking tool optimized for efficient computation, reduced memory usage, and configurable CPU utilization that allows for independent usage or seamless integration with Hashcat. The goal for CipherCat is to make password cracking simpler and easier. CipherCat currently only offers the MD5 hash cracking mode but may offer more in the future.
+# HashFox
+HashFox is a Python-based, cross-platform hash-cracking tool optimized for efficient computation, reduced memory usage, and configurable CPU utilization that allows for independent usage or seamless integration with Hashcat. The goal for HashFox is to make password cracking simpler and easier. HashFox currently only offers the MD5 hash cracking mode but may offer more in the future.
 
 
 ## License
-CipherCat is licensed under the MIT license. More information can be found in [LICENSE](https://github.com/TrickySnoah/ciphercat/blob/main/LICENSE).
+HashFox is licensed under the MIT license. More information can be found in [LICENSE](https://github.com/TrickySnoah/hashfox/blob/main/LICENSE).
 
 
 ## Requirements
@@ -21,7 +21,7 @@ Extract the contents.
 ### Linux
 Clone the repository.
 ```
-git clone https://github.com/TrickySnoah/ciphercat.git
+git clone https://github.com/TrickySnoah/hashfox.git
 ```
 
 ### (Optional) Hashcat
@@ -31,12 +31,12 @@ Once the 7z zip file is downloaded:
 #### Windows
 Extract the 7z zip file in any desired path.
 
-Relocate the **OpenCL** and **modules** folders and **hashcat.hcstat2** file to the same folder as CipherCat's **main.py** file.
+Relocate the **OpenCL** and **modules** folders and **hashcat.hcstat2** file to the same folder as HashFox's **main.py** file.
 
 Add a new file in the same folder as the **main.py** file and completely rename the newly created file to **hashcat.potfile**
 
 #### Linux
-Extract the 7z zip file in a path that is accessible to CipherCat
+Extract the 7z zip file in a path that is accessible to HashFox
 
 
 ## Usage
@@ -62,8 +62,8 @@ First, double check that the folders and files are where they should be. Next, e
 ### What file should the hashcat_path variable in the config.py file or the ```--hashcat-path``` in my Linux command point towards?
 The hashcat_path variable or the ```--hashcat-path``` flag should both point towards Hashcat's .exe file or ELF file. The elf file may look like a file named "hashcat" without any file extension.
 
-### What does "version" mean to CipherCat?
-Per CipherCat, "version" refers to the tool that CipherCat will use. CipherCat has the option to either striclty act independently, strictly integrate with Hashcat, or work in a hybrid mode using either tool depending on certain variables.
+### What does "version" mean to HashFox?
+Per HashFox, "version" refers to the tool that HashFox will use. HashFox has the option to either striclty act independently, strictly integrate with Hashcat, or work in a hybrid mode using either tool depending on certain variables.
 
 ### Does this tool work with WSL, or Windows Subsystem for Linux?
 Yes! The tool works with WSL just as it would be used in any other distribution of Linux.
