@@ -47,7 +47,7 @@ Extract the 7z zip file in a path that is accessible to HashFox
 
 ## Usage
 ### Windows
-Visit the **config.py** file for more instructions on how to set up the tool.
+Visit the [**src/config.py**](https://github.com/TrickySnoah/hashfox/blob/main/src/config.py) file for more instructions on how to set up the tool.
 
 Once the tool has been configured to the desired cracking state, open the **main.py** file in an IDE and run the tool.
 ### Linux
@@ -63,7 +63,7 @@ Refer to the output of ```python3 main.py --help``` for usage information and ge
 For Hashcat functionality with Windows, the **OpenCL** and **modules** folders and **hashcat.hcstat2** and **hashcat.potfile** files must be in the same path as the **main.py** file.
 
 ### Why is Hashcat is not working yet I have already moved all of the files?
-First, double check that the folders and files are where they should be. Next, ensure that the given paths either in the **config.py** file or in the Linux command are accurate.
+First, double check that the folders and files are where they should be. Next, ensure that the given paths either in the [**src/config.py**](https://github.com/TrickySnoah/hashfox/blob/main/src/config.py) file or in the Linux command are accurate.
 
 ### What file should the hashcat_path variable in the config.py file or the ```--hashcat-path``` in my Linux command point towards?
 The hashcat_path variable or the ```--hashcat-path``` flag should both point towards Hashcat's .exe file or ELF file. The elf file may look like a file named "hashcat" without any file extension.

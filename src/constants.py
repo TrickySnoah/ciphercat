@@ -17,7 +17,7 @@ ACCEPTABLE_FLAGS = ["-w","-m","--files-hashes","--files-h-output","-o","--files-
 
 REQUIRED_FLAGS = ["word"]
 
-DEFAULT_FLAGS = {"mode":"0", "file hashes":r"files/hashes.txt", "file hashes output":r"files/cracked.txt", "file input":r"files/wordlist.txt", "cores":"1", "permutations":"0", "version":"0"}
+DEFAULT_FLAGS = {"mode":"0", "file hashes":"files/hashes.txt", "file hashes output":"files/cracked.txt", "file input":"files/wordlist.txt", "cores":"1", "permutations":"0", "version":"1"}
 
 """ NOTES FOR REQUIRED / NON-REQUIRED STUFF
 
@@ -25,7 +25,7 @@ REQUIRED -
 -w is for word. This shows the type of password format the cracker will be cracking for
 
 NON REQUIRED -
--m is for mode. this will be the mode that Hashcat uses and is directly from their mode list. The default will be mode 0 (MD5)
+-m is for hash mode. This will be the mode that HashFox uses. The default will be hash mode 0 (MD5)
 --files-hashes is for the file that contains the hashes to crack. The default is "hashes.txt"
 --files-h-output OR -o is for the results of cracking the hashes. The default is "cracked.txt"
 --files-input is for the given word list. The defualt is "wordlist.txt"
@@ -90,11 +90,11 @@ ACCEPTABLE_VERSIONS = ["0", "1", "2"]
 
 # file related
 
-HASHCAT_MODES_FILE = r"files/hashcat_modes.txt"
+#HASHCAT_MODES_FILE = "files/hashcat_modes.txt"
 
-MANUAL_FILE = r"resources/man.txt"
+MANUAL_FILE = "resources/manual.txt"
 
-PASSWORDS_DEFAULT_FILE_PATH = r"files/password_files/passwordlist"
+PASSWORDS_DEFAULT_FILE_PATH = "files/password_files/passwordlist"
 
 
 

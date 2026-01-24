@@ -102,8 +102,8 @@ def solutions(error_code, args=None, os=None):
             print("Ensure that the argument provided for the '-m' flag is accurate.")
             print("Refer to the output of 'python3 main.py --help' to find all of the arguments for hash modes.")
         elif os == "Win":
-            print("Ensure that the value given to the hashcat_mode variable in the config.py file is accurate.")
-            print("Refer to the 'Instructions and Help' section at the bottom of the config.py file to find all of the available values for the hashcat_mode variable.")
+            print("Ensure that the value given to the hash_mode variable in the config.py file is accurate.")
+            print("Refer to the 'Instructions and Help' section at the bottom of the config.py file to find all of the available values for the hash_mode variable.")
         print("To find all currently supported hash functions, refer to https://github.com/TrickySnoah/hashfox/blob/main/README.md#supported-hash-functions")
         return
     
@@ -269,12 +269,12 @@ def manual_validate_and_parse(args, os_name):
             exit(1)
         word_amount += 1
         
-    # hashcat mode
-    if str(hashcat_mode) not in ACCEPTABLE_HASH_MODES:
+    # hash mode
+    if str(hash_mode) not in ACCEPTABLE_HASH_MODES:
         solutions(7, os=os_name)
         wait(EXIT_WAIT_TIME)
         exit(1)
-    info["mode"] = str(hashcat_mode)
+    info["mode"] = str(hash_mode)
     
     # cores
     if str(cores).isdigit():
@@ -310,7 +310,7 @@ def manual_validate_and_parse(args, os_name):
     # all files
     info["file hashes"] = hashes_file
 
-    # HASHCAT OUTPUT FILENAME
+    # HASH OUTPUT FILENAME
     info["file hashes output"] = h_output_file
 
     # RAW INPUT PASSWORDS FILE FILENAME

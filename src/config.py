@@ -10,8 +10,8 @@
 # PASSWORD FORMAT (separate password formats by commas)
 password_format = ""
 
-# HASHCAT MODE
-hashcat_mode = 0
+# HASH MODE
+hash_mode = 0
 
 # CORE AMOUNT HERE
 cores = 1
@@ -20,7 +20,7 @@ cores = 1
 permutations = 0
 
 # VERSION (tool)
-version = 0
+version = 1
 
 # HASHES FILE FILENAME
 hashes_file = "files/hashes.txt"
@@ -55,7 +55,7 @@ this file whilst Linux will have the option of relying on this file for ease of 
                        | password formats, each separated with a comma. Password  |
                        | formats will also include masking as desired.            |
                        |                                                          |
-  hashcat_mode         | Determines the hashing mode.                             | hashcat_mode = 0
+  hash_mode            | Determines the hashing mode.                             | hash_mode = 0
                        |                                                          |
   cores                | Determines the amount of cores on the CPU to use. Cores  | cores = 6
                        | are used to divide the work in the tool to optimize      |
@@ -129,8 +129,8 @@ this file whilst Linux will have the option of relying on this file for ease of 
 # PASSWORD FORMAT (separate password formats by commas)
 password_format = "?a?a?aword,word?a?a?a,?a?aword?a,?aword?a?a"
 
-# HASHCAT MODE
-hashcat_mode = 0
+# HASH MODE
+hash_mode = 0
 
 # CORE AMOUNT HERE
 cores = 0

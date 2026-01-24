@@ -8,18 +8,18 @@ Usage: python3 main.py [options]...
 
 Options                | Description                                       | Example
 =======================+===================================================+====================
--h, --help, --man      | Displays a manual page showing how HashFox can  |
+-h, --help, --man      | Displays a manual page showing how HashFox can    |
                        | be used                                           |
 -w                     | Indication for how the words from the word list   | -w ?aword?d?l
                        | will be formatted, with masking or without        |
--m                     | Hash-type used by hashcat (references below)      | -m 0
+-m                     | Hash mode / algorithm (references below)          | -m 0
 -o, --files-h-output   | Output file for recovered hashes                  | -o cracked.txt
                        |                                                   | --files-h-output files/cracked.txt
 -c                     | Amount of CPU cores to be used. 0 will opt to use | -c 6
                        | all available cores on current CPU                |
 -p                     | All permutations / casing for words from the      | -p 4
                        | provide word list (choices below)                 |
--v                     | Which tool to use, wehther it be HashFox or     | -v 1
+-v                     | Which tool to use, whether it be HashFox or       | -v 1
                        | Hashcat                                           |
 --files-hashes         | File containing hashes to be cracked              | --files-hashes files/hashes.txt
 --files-input          | Word list file                                    | --files-input files/wordlist.txt
@@ -37,7 +37,7 @@ Options                | Defualt value
 -o, --files-h-output   | files/cracked.txt
 -c                     | 1
 -p                     | 0
--v                     | 0
+-v                     | 1
 --files-hashes         | files/hashes.txt
 --files-input          | files/wordlist.txt
 --hashcat-path         | N/A (defaults to hashcat_path from config.py. If hashcat_path
@@ -114,6 +114,6 @@ ples/example-01_cracked.txt
 [2]:
 python3 main.py -w ?a?a?aword -w word?a?a?a -w ?a?aword?a -w ?aword?a?a -p 4 -c 0 -v 1 --files-input examples/example-02_wordlist.txt --files-hashes examples/example-02_hashes.txt -o examples/example-02_cracked.txt
 
-[3]:
+[3] (Requires Hashcat integration):
 python3 main.py -w word?a?a?a?a -w ?a?a?a?aword -w word?a?a?a -w ?a?a?aword -w ?aword?a?a -w ?a?aword?a -v 0 -p 4 -c 0 --files-input examples/example-03_wordlist.txt --files-hashes examples/example-03_hashes.txt -o examples/example-03_cracked.txt
 
