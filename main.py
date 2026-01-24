@@ -27,16 +27,19 @@ def main():
     elif os == "Linux":
         print("\nCLI Version Detected. Working with CLI version now.\n")
         
-        if len(sys.argv) % 2 != 1 or len(sys.argv) == 1:
-            if len(sys.argv) != 1:
-                if sys.argv[1] in HELP_FLAGS:
-                    utils.display_manual()
-                    wait(EXIT_WAIT_TIME)
-                    exit(0)
-                elif sys.argv[1] in VERSION_FLAGS:
-                    utils.display_version()
-                    wait(EXIT_WAIT_TIME)
-                    exit(0)
+        if len(sys.argv) == 1:
+            utils.display_default()
+            wait(EXIT_WAIT_TIME)
+            exit(0)
+        elif len(sys.argv) % 2 != 1:
+            if sys.argv[1] in HELP_FLAGS:
+                utils.display_manual()
+                wait(EXIT_WAIT_TIME)
+                exit(0)
+            elif sys.argv[1] in VERSION_FLAGS:
+                utils.display_version()
+                wait(EXIT_WAIT_TIME)
+                exit(0)
             utils.solutions(10)
             wait(EXIT_WAIT_TIME)
             exit(1)

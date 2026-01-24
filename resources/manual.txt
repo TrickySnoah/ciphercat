@@ -9,6 +9,7 @@ Usage: python3 main.py [options]...
 Options                | Description                                       | Example
 =======================+===================================================+====================
 -h, --help, --man      | Displays a manual page showing how HashFox can    |
+--version              | Displays the current version of HashFox           | --version
                        | be used                                           |
 -w                     | Indication for how the words from the word list   | -w ?aword?d?l
                        | will be formatted, with masking or without        |
@@ -32,6 +33,7 @@ Options                | Description                                       | Exa
 Options                | Defualt value
 =======================+=============================================================
 -h, --help, --man      | N/A
+--version              | N/A
 -w                     | N/A (required)
 -m                     | 0
 -o, --files-h-output   | files/cracked.txt
