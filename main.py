@@ -1,9 +1,10 @@
 
 # HashFox tool created by Noah Jackson
 
-import sys, utils, src/utils
+import sys
 from time import time as start, sleep as wait
-from src/constants import *
+from src import utils
+from src.constants import *
 
 
 def main():
