@@ -7,7 +7,7 @@
 
 
 
-# PASSWORD FORMAT (separate password formats by commas)
+# PASSWORD FORMAT (separate password formats by commas. Ex: "word,word?d,word?a?a")
 password_format = ""
 
 # HASH MODE
@@ -22,19 +22,19 @@ permutations = 0
 # VERSION (tool)
 version = 1
 
-# HASHES FILE FILENAME
+# HASHES FILE NAME
 hashes_file = "files/hashes.txt"
 
-# OUTPUT FILENAME
+# OUTPUT FILE NAME
 h_output_file = "files/cracked.txt"
 
-# RAW INPUT PASSWORDS FILE FILENAME
+# WORDLIST FILE NAME
 input_file = "files/wordlist.txt"
 
-# HASHCAT FILE PATH HERE (default for CLI version)
+# HASHCAT FILE PATH (default for CLI version)
 hashcat_path = ""
 
-# HASHCAT POTFILE FILE PATH HERE (default for CLI version)
+# HASHCAT POTFILE FILE PATH (default for CLI version)
 hashcat_potfile_path = ""
 
 
@@ -126,7 +126,7 @@ this file whilst Linux will have the option of relying on this file for ease of 
 
 - [ Working Example ] -
 
-# PASSWORD FORMAT (separate password formats by commas)
+# PASSWORD FORMAT (separate password formats by commas. Ex: "word,word?d,word?a?a")
 password_format = "?a?a?aword,word?a?a?a,?a?aword?a,?aword?a?a"
 
 # HASH MODE
@@ -138,22 +138,22 @@ cores = 0
 # PERMUATIONS TYPE
 permutations = 4
 
-# VERSION
+# VERSION (tool)
 version = 1
 
-# HASHES FILE FILENAME
+# HASHES FILE NAME
 hashes_file = "examples/example-02_hashes.txt"
 
-# OUTPUT FILENAME
+# OUTPUT FILE NAME
 h_output_file = "examples/example-02_cracked.txt"
 
-# RAW INPUT PASSWORDS FILE FILENAME
+# WORDLIST FILE NAME
 input_file = "examples/example-02_wordlist.txt"
 
-# HASHCAT FILE PATH HERE (default for CLI version)
+# HASHCAT FILE PATH (default for CLI version)
 hashcat_path = ""
 
-# HASHCAT POTFILE FILE PATH HERE (default for CLI version)
+# HASHCAT POTFILE FILE PATH (default for CLI version)
 hashcat_potfile_path = ""
 
 """

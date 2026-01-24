@@ -650,9 +650,9 @@ def crack_hashes(args, os_name):
     for password_format_index in range(len(args["word"])):
         
         if password_format_index == 0:
-            print("Starting cracking...")
+            print("Preparing password format...")
         else:
-            print("Starting next cracking...")
+            print("Preparing next password format...")
 
         # determine whether to integrate Hashcat or not
         if args["version"] == "1":
@@ -757,7 +757,7 @@ def crack_hashes(args, os_name):
         start_time = time()
         
         # give info per iteration
-        print(f"""  Current password format: {args["word"][password_format_index]}\n  Cores: {current_cores}\n  Tool: {tool}\n  Attack mode: {attack_mode}""")
+        print(f"""  Current password format: {args["word"][password_format_index]}\n  Password format count: {password_format_index}/{len(args["word"])}\n  Cores: {current_cores}\n  Tool: {tool}\n  Attack mode: {attack_mode}""")
         
         
         # using either tool
