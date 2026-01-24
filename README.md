@@ -1,6 +1,13 @@
 # HashFox
 HashFox is a Python-based, cross-platform hash-cracking tool optimized for efficient computation, reduced memory usage, and configurable CPU utilization that allows for independent usage or seamless integration with Hashcat. The goal for HashFox is to make password cracking simpler and easier. HashFox currently only offers the MD5 hash cracking mode but may offer more in the future.
 
+For full release notes, see [CHANGELOG.md](CHANGELOG.md)
+
+
+> **IMPORTANT DISCLOSURE:** HashFox is a standalone tool that optionally integrates with Hashcat, 
+> but it is **not affiliated with or endorsed by the Hashcat project**. Users must download Hashcat 
+> separately to enable optional integration.
+
 
 ## License
 HashFox is licensed under the MIT license. More information can be found in [LICENSE](https://github.com/TrickySnoah/hashfox/blob/main/LICENSE).
@@ -8,7 +15,6 @@ HashFox is licensed under the MIT license. More information can be found in [LIC
 
 ## Requirements
 - Python **3.10.11**
-- (Optional) Hashcat **v6.2.6**
 
 
 ## Installation
@@ -25,7 +31,7 @@ git clone https://github.com/TrickySnoah/hashfox.git
 ```
 
 ### (Optional) Hashcat
-Visit Hashcat's [releases page](https://hashcat.net/hashcat/) and install the binaries for Hashcat v6.2.6.
+Visit Hashcat's [releases page](https://hashcat.net/hashcat/) and install the binaries for **Hashcat v6.2.6**.
 
 Once the 7z zip file is downloaded:
 #### Windows
@@ -48,7 +54,7 @@ Once the tool has been configured to the desired cracking state, open the **main
 Refer to the output of ```python3 main.py --help``` for usage information and general help with the tool. 
 
 
-## Supported Hash Functions
+## Supported Algorithms
 - MD5
 
 

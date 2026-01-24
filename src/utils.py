@@ -4,7 +4,7 @@ import os # total core amount
 import sys # os discovery
 import subprocess # used to run hashcat
 import hashlib # generates MD5 hashes
-from time import time as time, sleep as wait # for output and IDE purposes. Thonny was performing too quick and the processed the "exit(0)" statements and ended the program too early sometimes.
+from time import time, sleep as wait # for output and IDE purposes. Thonny was performing too quick and the processed the "exit(0)" statements and ended the program too early sometimes.
 from concurrent.futures import ProcessPoolExecutor # multiprocessing / using all cores of CPU. Not threads because of the GIL?
 from constants import *
 from config import *

@@ -92,7 +92,7 @@ ACCEPTABLE_VERSIONS = ["0", "1", "2"]
 
 HASHCAT_MODES_FILE = r"files/hashcat_modes.txt"
 
-MANUAL_FILE = r"resources/man.info"
+MANUAL_FILE = r"resources/man.txt"
 
 PASSWORDS_DEFAULT_FILE_PATH = r"files/password_files/passwordlist"
 
