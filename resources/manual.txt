@@ -9,7 +9,7 @@ Usage: python3 main.py [options]...
 Options                | Description                                       | Example
 =======================+===================================================+====================
 -h, --help, --man      | Displays a manual page showing how HashFox can    |
---version              | Displays the current version of HashFox           | --version
+--version              | Displays the current version of HashFox           |
                        | be used                                           |
 -w                     | Indication for how the words from the word list   | -w ?aword?d?l
                        | will be formatted, with masking or without        |
